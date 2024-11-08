@@ -42,7 +42,7 @@ set JGSL=%cd%\JGSL
 set config=%JGSL%\.config
 set lang_folder=%JGSL%\lang
 set "Api.Github=https://api.github.com/repos/Qianyiaz/JimGenshinServerLauncher/releases/latest"    
-rem 如果修改api，可以直接更改gihub链接。
+rem 如果修改api，可以直接更改gihub链接。（只能为github api）
 
 set tempfile=%JGSL%\github.json
 
@@ -90,6 +90,7 @@ if !L_M! gtr !C_M! (
         )
     )
 )
+rem 这一部分不可改
 :lang
 set "content="
 for /f "usebackq delims=" %%A in ("%config%") do ( set "content=!content!%%A")
@@ -109,6 +110,7 @@ if errorlevel 1 (
     echo Version=1.0.0
     echo Count=0
     ) >> %config%
+    rem 这一部分可以自行修改
     echo.
     echo            Please choose your language:
     echo                     [1] Chinese-s           
@@ -131,6 +133,8 @@ if errorlevel 1 (
 
 for /f "tokens=1,* delims==" %%a in (%config%) do ( set "%%a=%%b")
 for /f "tokens=1,* delims==" %%a in (%lang_folder%\%Lang%.lang) do ( set "%%a=%%b")
+
+rem 正片
 
 title %ys-1%
 echo %ys-2%
@@ -209,6 +213,7 @@ echo %ys-13%
 echo %ys-14%
 echo %ys-15%
 echo %ys-16%
+rem 启动部分
 pause > nul
 cls
 title %ys-17%
@@ -317,6 +322,7 @@ color 47
 title Error Occurred: Game Not Found
 set select2=1
 echo %ys-16%
+rem 这一部分我改为了英文，由GPT翻译
 echo An error occurred that cannot be processed automatically, JGSL cannot continue running.
 echo Error: Game Not Found
 echo Error Code: error_game_unfind(0x0001)
@@ -349,3 +355,5 @@ pause
 rmdir /s /q "%CF%"
 start "" cmd /c "@echo off & del %JGSL% &  move "%JGSL%/JimGenshinServerLauncher.exe" "%cd%" & start %cd%/JimGenshinServerLauncher.exe"
 exit
+
+rem 可能是因为编码转换导致经常出现 （�?）
